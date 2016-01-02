@@ -2,7 +2,19 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
     concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: [
+          '/**/*.js',
+          '*.js',
+          'src/outro.js'
+          ],
+        dest: 'dist/built.js',
+      },
     },
 
     mochaTest: {
@@ -16,16 +28,20 @@ module.exports = function(grunt) {
 
     nodemon: {
       dev: {
-        script: 'server.js'
+        script: 'index.js'
+        // this was server.js
       }
     },
 
     uglify: {
+      // FIXME
     },
 
     jshint: {
       files: [
-        // Add filespec list here
+        'Gruntfile.js',
+        'index.js',
+        'server.js'
       ],
       options: {
         force: 'true',
@@ -38,6 +54,7 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
+      // FIXME
     },
 
     watch: {
@@ -59,6 +76,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+      // FIXME
       }
     },
   });
@@ -94,11 +112,14 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+      // FIXME
   ]);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
+      // string that represents a commandline command
+      // FIXME
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -106,6 +127,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
+      // FIXME
   ]);
 
 
