@@ -96,7 +96,13 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-      // FIXME
+        multiple: {
+          command: [
+              'git add *',
+              'git commit -m "Sending to Heroku"',
+              'git push heroku master'
+          ].join('&&')
+        }
       }
     },
   });
