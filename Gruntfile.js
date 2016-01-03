@@ -11,9 +11,9 @@ module.exports = function(grunt) {
         src: [
           '/**/*.js',
           '*.js',
-          'src/outro.js'
+          '!test/*.js'
           ],
-        dest: 'dist/built.js',
+        dest: 'public/dist/built.js',
       },
     },
 
@@ -34,7 +34,19 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      // FIXME
+      options: {
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
+      dist: {
+        files: {
+          src: [
+            'public/dist/built.js'
+          ],
+          dest: [
+            'public/dist/min.js'
+          ]
+        }
+      }
     },
 
     jshint: {
@@ -54,7 +66,15 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
-      // FIXME
+      target: {
+         files: [{
+           expand: true,
+           cwd: '/public',
+           src: ['*.css', '!*.min.css'],
+           dest: '/dist',
+           ext: '.min.css'
+         }]
+       }
     },
 
     watch: {
