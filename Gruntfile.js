@@ -8,13 +8,10 @@ module.exports = function(grunt) {
         separator: ';',
       },
       dist: {
-        src: [
-          '/**/*.js',
-          '*.js',
-          '!test/*.js'
-          ],
+        src: ['public/client/**/*.js'],
         dest: 'public/dist/built.js',
-      },
+        nonull: true
+      }
     },
 
     mochaTest: {
@@ -39,12 +36,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          src: [
-            'public/dist/built.js'
-          ],
-          dest: [
-            'public/dist/min.js'
-          ]
+          'public/dist/built.min.js' : ['public/dist/built.js']
         }
       }
     },
@@ -140,29 +132,23 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-      // 'nodemon',
-      'jshint',
-      'concat',
-      'uglify',
-      'cssmin',
-      'mochaTest'
-
+    // 'nodemon',
+    'jshint',
+    'concat:dist',
+    'uglify',
+    'cssmin',
+    'mochaTest'
   ]);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
-      // add your production server task here
       // string that represents a commandline command
       grunt.task.run(['prodServer']);
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run(['server-dev']);
     }
   });
 
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-     grunt.task.run([ 'build', 'upload' ])
-  ]);
-
+  grunt.registerTask('deploy', ['build', 'upload']);
 
 };
